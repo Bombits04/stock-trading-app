@@ -4,4 +4,12 @@ one:
   email: "test@example.com"
   first_name: "John"
   last_name: "Doe"
+  user_type: "admin"
+  encrypted_password: <%= BCrypt::Password.create('securepassword') %>
+
+trader:
+  email: "testtrader@example.com"
+  first_name: "test"
+  last_name: "trader"
+  user_type: "trader"
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
