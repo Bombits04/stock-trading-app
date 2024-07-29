@@ -1,0 +1,7 @@
+<%require 'bcrypt'%>
+
+one:
+  email: "test@example.com"
+  first_name: "John"
+  last_name: "Doe"
+  encrypted_password: <%= BCrypt::Password.create('securepassword') %>
