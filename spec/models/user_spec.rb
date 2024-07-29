@@ -25,9 +25,20 @@ RSpec.describe User, type: :model do
   end
 
   it 'is invalid with a duplicate email' do
-    user_with_duplicate_email = user.dup
-    user_with_duplicate_email.email = user.email
-    user_with_duplicate_email.save
+    user = User.create(
+      first_name: 'John',
+      last_name: 'Doe',
+      email: 'john.doe@example.com',
+      password: 'password',
+      password_confirmation: 'password'
+    )
+    user_with_duplicate_email = User.new(
+      first_name: 'Jane',
+      last_name: 'Smith',
+      email: 'john.doe@example.com',
+      password: 'password123',
+      password_confirmation: 'password123'
+    )
     expect(user_with_duplicate_email).not_to be_valid
   end
 
