@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,4 +9,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Define a route that maps to a controller action
+  root 'admin#all_users'
+  get 'admin/all_users' => 'admin#all_users'
+  get 'admin/all_users/:id/edit' => 'admin#edit', as: 'edit_user'
+
+  resources :users, only: [:edit, :update]
 end

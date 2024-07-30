@@ -34,5 +34,6 @@ RSpec.describe AdminController, type: :controller do
         patch :update, params: { id: 1, user: { first_name: "updatedFirstName", last_name: "updatedLastName", email: "updatedemail@email.com"}} # update all fields
         exapct(response).to have_http_status(:success)
       end
+    end
   end
 end

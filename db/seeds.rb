@@ -7,6 +7,22 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+puts "Starting to seed user..."
+user = User.create(
+  email: 'admin@admin.com',
+  password: 'password123',
+  user_type: 'admin'
+)
+puts "User: #{user.inspect}"
+if user.persisted?
+  puts "User created successfully!"
+else
+  puts "User creation failed: #{user.errors.full_messages.join(", ")}"
+end
+puts "Finished seeding user."
+
+# adds random users
 for i in 1..10 do
   User.create!(
     first_name: "first_name#{i}",
