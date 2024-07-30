@@ -25,8 +25,15 @@ RSpec.describe AdminController, type: :request do
   describe 'PATCH #update' do
     it 'returns a success response' do
       sign_in trader1
-      patch update_user_path(trader1), params: { user: { first_name: 'John' } }
+      patch update_user_path(trader1), params: { user: { first_name: 'updatedFirstName' } }
       expect(response).to redirect_to(root_path)
     end
+  end
+
+  describe 'PATCH #update with invalid params' do
+    it 'returns a success response' do
+      sign_in trader1
+      patch update_user_path(trader1), params: { user: { first_name: '' } }
+      expect(response).to be_successful
   end
 end
