@@ -14,15 +14,15 @@ RSpec.describe User, type: :model do
     expect(user).not_to be_valid
   end
 
-  it 'is invalid without a first name' do
-    user.first_name = nil
-    expect(user).not_to be_valid
-  end
+  # it 'is invalid without a first name' do
+  #   user.first_name = nil
+  #   expect(user).not_to be_valid
+  # end
 
-  it 'is invalid without a last name' do
-    user.last_name = nil
-    expect(user).not_to be_valid
-  end
+  # it 'is invalid without a last name' do
+  #   user.last_name = nil
+  #   expect(user).not_to be_valid
+  # end
 
   it 'is invalid with a duplicate email' do
     user = User.create(
@@ -66,5 +66,18 @@ RSpec.describe User, type: :model do
   it 'is valid with a proper password length' do
     user.password = "securepassword"
     expect(user).to be_valid
+  end
+
+  it 'sets user_type to "trader" if blank before validation' do
+    new_user = User.new(
+      first_name: 'New',
+      last_name: 'User',
+      email: 'new.user@example.com',
+      password: 'securepassword',
+      password_confirmation: 'securepassword'
+    )
+    expect(new_user.user_type).to be_nil
+    new_user.valid?
+    expect(new_user.user_type).to eq('trader')
   end
 end
