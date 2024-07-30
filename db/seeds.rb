@@ -21,14 +21,3 @@ else
   puts "User creation failed: #{user.errors.full_messages.join(", ")}"
 end
 puts "Finished seeding user."
-
-# adds random users
-for i in 1..10 do
-  User.create!(
-    first_name: "first_name#{i}",
-    last_name: "last_name#{i}",
-    email: "email#{i}@email.com",
-    password: "password#{i}",
-    is_pending: false
-  )
-end
