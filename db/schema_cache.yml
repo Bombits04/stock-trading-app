@@ -182,6 +182,20 @@ columns:
     comment:
   - *3
   - *4
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: is_pending
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: boolean
+      type: :boolean
+      limit:
+      precision:
+      scale:
+    'null': true
+    default: '1'
+    default_function:
+    collation:
+    comment:
 primary_keys:
   ar_internal_metadata: key
   schema_migrations: version
@@ -226,7 +240,7 @@ indexes:
     nulls_not_distinct:
     comment:
     valid: true
-version: 20240726125155
+version: 20240729120134
 database_version: !ruby/object:ActiveRecord::ConnectionAdapters::AbstractAdapter::Version
   version:
   - 3

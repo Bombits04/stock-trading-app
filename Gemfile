@@ -52,6 +52,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails', '~> 5.0' #ito yung DINAGDAG
   gem 'factory_bot_rails', '~> 6.2' #ito yung DINAGDAG
+  gem 'rails-controller-testing'
 end
 
 group :development do
