@@ -13,7 +13,7 @@ class AdminController < ApplicationController
     if @user.update(user_params)
       redirect_to root_path, notice: 'User updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
