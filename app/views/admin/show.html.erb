@@ -1,0 +1,17 @@
+<h1><%= @user.first_name %>'s Profile</h1>
+<hr>
+<div class="user-details">
+    <center><h2>User Details</h2></center>
+    <p><strong>First name:</strong> <%= @user.first_name %></p>
+    <p><strong>Last name:</strong> <%= @user.last_name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <p><strong>User type:</strong> <%= @user.user_type %></p>
+    <p><strong>Pending?:</strong> <%= @user.is_pending ? "Pending" : "Active" %>
+    <p><strong>Created at:</strong> <%= @user.created_at %></p>
+    <p><strong>Last updated:</strong> <%= @user.updated_at %></p>
+</div>
+
+<div class="actions1">
+    <%= link_to "Edit", edit_user_path(@user), class: "btn" %>
+    <%= link_to "Back", "/", class: "btn" %>
+  </div>
