@@ -31,9 +31,32 @@ RSpec.describe AdminController, type: :request do
   end
 
   describe 'PATCH #update with invalid params' do
-    it 'returns a success response' do
+    it 'returns an unprocessable entity response when first name is empty' do
       sign_in trader1
       patch update_user_path(trader1), params: { user: { first_name: '' } }
-      expect(response).to be_successful
+      expect(response).to have_http_status(422)
+      expect(response).to render_template(:edit)
+    end
+
+    it 'returns an unprocessable entity response when last name is empty' do
+      sign_in trader1
+      patch update_user_path(trader1), params: { user: { last_name: '' } }
+      expect(response).to have_http_status(422)
+      expect(response).to render_template(:edit)
+    end
+
+    it 'returns an unprocessable entity response when email is empty' do
+      sign_in trader1
+      patch update_user_path(trader1), params: { user: { email: '' } }
+      expect(response).to have_http_status(422)
+      expect(response).to render_template(:edit)
+    end
+
+    it 'returns an unprocessable entity response when first_name, last_name, email is empty' do
+      sign_in trader1
+      patch update_user_path(trader1), params: { user: { first_name: '', last_name: '', email: '' } }
+      expect(response).to have_http_status(422)
+      expect(response).to render_template(:edit)
+    end
   end
 end
