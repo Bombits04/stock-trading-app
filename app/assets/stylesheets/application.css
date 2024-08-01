@@ -13,3 +13,159 @@
  *= require_tree .
  *= require_self
  */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.head1 {
+    color: #333;
+    text-align: center;
+}
+
+.table-all {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.table-all th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-all tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-all tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-all th {
+    background-color: #f2f2f2;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+
+.container {
+    max-width: 80%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.field {
+    margin: 10px 0;
+}
+
+.header {
+    color: #333;
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.form-group .btn-danger {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.actions1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.actions1 a,
+.actions1 button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.actions1 .btn-secondary {
+    background-color: #6c757d;
+}
+
+.user-details {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
