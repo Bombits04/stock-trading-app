@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
-  # before_action :admin_only
+  before_action :admin_only
   # before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_user, only: %i[edit update show]
   def all_users
@@ -21,11 +21,11 @@ class AdminController < ApplicationController
 
   private
 
-  # def admin_only
-  #   unless current_user.admin?
-  #     redirect_to root_path, alert: "Access denied."
-  #   end
-  # end
+  def admin_only
+    unless current_user.user_type == 'admin'
+      redirect_to root_path, alert: "Access denied."
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])
