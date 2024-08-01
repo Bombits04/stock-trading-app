@@ -11,10 +11,12 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Define a route that maps to a controller action
-  root 'admin#all_users'
+  root 'home#index'
+
   get 'admin/all_users', to: 'admin#all_users', as: 'admin_all_users'
   get 'admin/all_users/:id/edit' => 'admin#edit', as: 'edit_user'
   get 'admin/show/:id' => 'admin#show', as: 'show_user'
+  get 'trader' => 'trader#index'
   patch 'admin/all_users/:id' => 'admin#update', as: 'update_user'
 
   # resources :users, only: [:edit, :update]
