@@ -13,6 +13,7 @@ trader:
   last_name: "trader"
   user_type: "trader"
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
+  is_pending: "boolean"
 
 trader1:
   email: "testtrader1@example.com"
@@ -20,6 +21,8 @@ trader1:
   last_name: "trader1"
   user_type: "trader"
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
+  is_pending: "boolean"
+
   
 trader2:
   email: "testtrader2@example.com"
@@ -27,3 +30,4 @@ trader2:
   last_name: "trader2"
   user_type: "trader"
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
+  is_pending: "boolean"

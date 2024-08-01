@@ -161,6 +161,25 @@ td {
     background-color: #6c757d;
 }
 
+.actions2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.actions2 a,
+.actions2 button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    background-color: #4CAF50;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+}
+
 .user-details {
     max-width: 600px;
     margin: 0 auto;
@@ -168,4 +187,37 @@ td {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+}
+
+.personal-info {
+    margin: auto;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-content: center;
+}
+
+.personal-info h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.personal-info p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.personal-info .btn-danger {
+    display: block;
+    width: 100%;
+    text-align: center;
 }

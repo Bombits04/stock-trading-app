@@ -1,5 +1,56 @@
-Hi! Eto yun
+<style>
+  body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+  }
 
-<%= button_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn-danger" do %>
+  .personal-info {
+      min-height: 300px;
+      min-width: 400px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+  }
+
+  .personal-info h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+  }
+
+  .personal-info p {
+      margin: 10px 0;
+      font-size: 18px;
+  }
+
+  .personal-info .btn-danger {
+      display: block;
+      width: 100%;
+      text-align: center;
+  }
+</style>
+
+<div class="personal-info">
+  <h1>Your Profile</h1>
+
+  <% if @user %>
+    <p>Name: <%= @user.first_name %> <%= @user.last_name %></p>
+    <p>Email: <%= @user.email %></p>
+  <% else %>
+    <p>No trader information available.</p>
+  <% end %>
+
+  <%= button_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn-danger" do %>
     Logout
   <% end %>
+</div>
