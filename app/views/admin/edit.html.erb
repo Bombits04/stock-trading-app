@@ -2,7 +2,30 @@
 
 <hr>
 
-<%= render 'form', user: @user %>
+<%= form_with url: update_user_path, method: :patch, scope: :user, class: "my-form" do |f| %>
+  <div class="form-group">
+    <div class="field">
+      <%= f.label :first_name, "First Name: " %>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name, "Last Name: " %>
+      <%= f.text_field :last_name %>
+    </div>
 
+    <div class="field">
+      <%= f.label :email, "Email: " %>
+      <%= f.email_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :is_pending, "Is Active?" %>
+      <%= f.select :is_pending, [["Active", false], ["Pending", true]] %>
+    </div>
+    <div class="actions1">
+      <%= f.submit "Update User" %>
+      <%= link_to "Back", "/", class: "btn" %>
+    </div>
+  </div>
+<% end %>
 <hr>
 <br>
