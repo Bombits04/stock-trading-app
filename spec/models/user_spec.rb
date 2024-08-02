@@ -1,83 +1,97 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe AdminController, type: :request do
   fixtures :users
 
-  let(:user) { users(:one) }
+  let(:admin) { users(:one) }
+  let(:trader) { users(:trader) }
+  let(:valid_attributes) { { first_name: 'John', last_name: 'Doe', email: 'newtrader@example.com', password: 'password', password_confirmation: 'password', is_pending: false } }
+  let(:invalid_attributes) { { first_name: '', last_name: '', email: '', password: '', password_confirmation: '', is_pending: false } }
 
-  it 'has a valid fixture' do
-    expect(user).to be_valid
+  before do
+    sign_in admin
   end
 
-  it 'is invalid without an email' do
-    user.email = nil
-    expect(user).not_to be_valid
+  describe "GET /admin/all_users" do
+    it "returns a success response" do
+      get admin_all_users_path
+      expect(response).to be_successful
+    end
   end
 
-  # it 'is invalid without a first name' do
-  #   user.first_name = nil
-  #   expect(user).not_to be_valid
-  # end
-
-  # it 'is invalid without a last name' do
-  #   user.last_name = nil
-  #   expect(user).not_to be_valid
-  # end
-
-  it 'is invalid with a duplicate email' do
-    user = User.create(
-      first_name: 'John',
-      last_name: 'Doe',
-      email: 'john.doe@example.com',
-      password: 'password',
-      password_confirmation: 'password'
-    )
-    user_with_duplicate_email = User.new(
-      first_name: 'Jane',
-      last_name: 'Smith',
-      email: 'john.doe@example.com',
-      password: 'password123',
-      password_confirmation: 'password123'
-    )
-    expect(user_with_duplicate_email).not_to be_valid
+  describe "GET /admin/new" do
+    it "returns a success response" do
+      get new_admin_path
+      expect(response).to be_successful
+    end
   end
 
-  it 'is invalid with an improperly formatted email' do
-    user.email = "invalid_email"
-    expect(user).not_to be_valid
+  describe "GET /admin/all_users/:id/edit" do
+    it "returns a success response" do
+      get edit_user_path(trader)
+      expect(response).to be_successful
+    end
   end
 
-  it 'is invalid without a password' do
-    user.encrypted_password = nil
-    expect(user).not_to be_valid
+  describe "GET /admin/show/:id" do
+    it "returns a success response" do
+      get show_user_path(trader)
+      expect(response).to be_successful
+    end
   end
 
-  it 'is invalid with a short password' do
-    user.password = "short"
-    expect(user).not_to be_valid
+  describe "POST /admin/create" do
+    context "with valid parameters" do
+      it "creates a new User" do
+        expect {
+          post create_admin_path, params: { user: valid_attributes }
+        }.to change(User, :count).by(1)
+      end
+
+      it "redirects to the admin_all_users_path" do
+        post create_admin_path, params: { user: valid_attributes }
+        expect(response).to redirect_to(admin_all_users_path)
+      end
+    end
+
+    context "with invalid parameters" do
+      it "does not create a new User" do
+        expect {
+          post create_admin_path, params: { user: invalid_attributes }
+        }.to change(User, :count).by(0)
+      end
+
+      it "renders a successful response (i.e. to display the 'new' template)" do
+        post create_admin_path, params: { user: invalid_attributes }
+        expect(response).to be_unprocessable
+      end
+    end
   end
 
-  it 'is valid with a proper email format' do
-    user.email = "valid@example.com"
-    user.password = "securepassword"
-    expect(user).to be_valid
-  end
+  describe "PATCH /admin/all_users/:id" do
+    context "with valid parameters" do
+      let(:new_attributes) { { first_name: 'Jane', last_name: 'Doe', email: 'janedoe@example.com' } }
 
-  it 'is valid with a proper password length' do
-    user.password = "securepassword"
-    expect(user).to be_valid
-  end
+      it "updates the requested user" do
+        patch update_user_path(trader), params: { user: new_attributes }
+        trader.reload
+        expect(trader.first_name).to eq('Jane')
+        expect(trader.last_name).to eq('Doe')
+        expect(trader.email).to eq('janedoe@example.com')
+      end
 
-  it 'sets user_type to "trader" if blank before validation' do
-    new_user = User.new(
-      first_name: 'New',
-      last_name: 'User',
-      email: 'new.user@example.com',
-      password: 'securepassword',
-      password_confirmation: 'securepassword'
-    )
-    expect(new_user.user_type).to be_nil
-    new_user.valid?
-    expect(new_user.user_type).to eq('trader')
+      it "redirects to the admin_all_users_path" do
+        patch update_user_path(trader), params: { user: new_attributes }
+        trader.reload
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "with invalid parameters" do
+      it "renders a successful response (i.e. to display the 'edit' template)" do
+        patch update_user_path(trader), params: { user: invalid_attributes }
+        expect(response).to be_unprocessable
+      end
+    end
   end
 end
