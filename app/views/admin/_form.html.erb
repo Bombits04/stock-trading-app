@@ -1,0 +1,52 @@
+<%= form_with(model: @user, url: @user.new_record? ? create_admin_path : update_user_path(@user), local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :first_name, "First Name: " %>
+      <%= form.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :last_name, "Last Name: " %>
+      <%= form.text_field :last_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :email, "Email: " %>
+      <%= form.email_field :email %>
+    </div>
+
+    <% if @user.new_record? %>
+      <div class="field">
+        <%= form.label :password, "Password: " %>
+        <%= form.password_field :password %>
+      </div>
+
+      <div class="field">
+        <%= form.label :password_confirmation, "Password Confirmation: " %>
+        <%= form.password_field :password_confirmation %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :is_pending, "Is Active?" %>
+      <%= form.select :is_pending, [["Active", false], ["Pending", true]] %>
+    </div>
+
+    <div class="actions1">
+      <%= form.submit @user.new_record? ? "Create User" : "Update User" %>
+      <%= link_to "Back", admin_all_users_path, class: "btn" %>
+    </div>
+  </div>
+<% end %>
