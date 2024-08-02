@@ -8,16 +8,41 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-puts "Starting to seed user..."
+puts 'Starting to seed user...'
 user = User.create(
+  first_name: 'admin_user',
+  last_name: 'admin_user_last',
   email: 'admin@admin.com',
   password: 'password123',
-  user_type: 'admin'
+  user_type: 'admin',
+  is_pending: false
 )
+
+# active users
+for i in 1..10 do
+  User.create!(
+    first_name: "first_name#{i}",
+    last_name: "last_name#{i}",
+    email: "email_active#{i}@email.com",
+    password: "password#{i}",
+    is_pending: false
+  )
+end
+# pending users
+for i in 1..10 do
+  User.create!(
+    first_name: "first_name#{i}",
+    last_name: "last_name#{i}",
+    email: "email_pending#{i}@email.com",
+    password: "password#{i}",
+    is_pending: true
+  )
+end
+
 puts "User: #{user.inspect}"
 if user.persisted?
-  puts "User created successfully!"
+  puts 'User created successfully!'
 else
-  puts "User creation failed: #{user.errors.full_messages.join(", ")}"
+  puts "User creation failed: #{user.errors.full_messages.join(', ')}"
 end
-puts "Finished seeding user."
+puts 'Finished seeding user.'

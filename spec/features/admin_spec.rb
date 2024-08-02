@@ -40,4 +40,24 @@ RSpec.describe 'Admin', type: :feature do
       expect(page).to have_content('All Users')
     end
   end
+
+  # TODO
+
+  describe 'PATCH #approve_user' do
+    it 'returns a success response' do
+      sign_in admin1
+      visit admin_all_users_path
+      expect(page).to have_content('All Users')
+      td = page.find.all('td', text: 'Pending')
+      tr = td.sample.find(:xpath, './parent::tr')
+      pending_users = all('tr', text: 'Pending')
+      pending_users.sample.click_button('Edit')
+
+      edit_buttons.sample.click
+      expect(page).to have_content('Edit User')
+
+      click_button 'Approve User'
+      expect(page).to have_content('Active')
+    end
+  end
 end

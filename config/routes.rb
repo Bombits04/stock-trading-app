@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'admin/show/:id' => 'admin#show', as: 'show_user'
   get 'trader' => 'trader#index'
   patch 'admin/all_users/:id' => 'admin#update', as: 'update_user'
+  patch 'approve_user/:id', to: 'admin#approve_user', as: 'approve_user'
 
-  # resources :users, only: [:edit, :update]
+  resources :users
 end

@@ -80,6 +80,18 @@ td {
     margin: 10px 0;
 }
 
+.field-Pending {
+    width: 65%;
+    /* display: flex; */
+}
+
+.div-Pending {
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
 .header {
     color: #333;
     text-align: left;
@@ -144,7 +156,8 @@ td {
 }
 
 .actions1 a,
-.actions1 button {
+.actions1 button,
+.div-Pending button {
     margin: 0 10px;
     padding: 10px 20px;
     border: none;
@@ -155,6 +168,11 @@ td {
     cursor: pointer;
     display: inline-block;
     font-size: 16px;
+}
+
+.div-Pending button {
+    height: 80%;
+    align-items: end;
 }
 
 .actions1 .btn-secondary {
@@ -168,4 +186,16 @@ td {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+}
+
+.Active {
+    background-color: rgb(197, 197, 197);
+    color: rgb(1, 148, 1);
+    font-weight: bold;
+}
+
+.Pending {
+    background-color: rgb(197, 197, 197);
+    color: rgb(244, 248, 0);
+    font-weight: bold;
 }
