@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def set_to_pending
-    self.is_pending = false unless is_pending.blank?
+    self.is_pending = true unless is_pending.blank?
   end
 
   def set_to_approved

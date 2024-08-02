@@ -18,26 +18,26 @@ user = User.create(
   is_pending: false
 )
 
-# active users
-for i in 1..10 do
-  User.create!(
-    first_name: "first_name#{i}",
-    last_name: "last_name#{i}",
-    email: "email_active#{i}@email.com",
-    password: "password#{i}",
-    is_pending: false
-  )
-end
-# pending users
-for i in 1..10 do
-  User.create!(
-    first_name: "first_name#{i}",
-    last_name: "last_name#{i}",
-    email: "email_pending#{i}@email.com",
-    password: "password#{i}",
-    is_pending: true
-  )
-end
+# # active users
+# for i in 1..10 do
+#   User.create!(
+#     first_name: "first_name#{i}",
+#     last_name: "last_name#{i}",
+#     email: "email_active#{i}@email.com",
+#     password: "password#{i}",
+#     is_pending: false
+#   )
+# end
+# # pending users
+# for i in 1..10 do
+#   User.create!(
+#     first_name: "first_name#{i}",
+#     last_name: "last_name#{i}",
+#     email: "email_pending#{i}@email.com",
+#     password: "password#{i}",
+#     is_pending: true
+#   )
+# end
 
 puts "User: #{user.inspect}"
 if user.persisted?
