@@ -18,9 +18,10 @@ Rails.application.routes.draw do
   get 'admin/show/:id' => 'admin#show', as: 'show_user'
   get '/home' => 'trader#index'
   patch 'admin/all_users/:id' => 'admin#update', as: 'update_user'
+  patch 'approve_user/:id', to: 'admin#approve_user', as: 'approve_user'
+
   get 'admin/new', to: 'admin#new', as: 'new_admin'
   post 'admin/create', to: 'admin#create', as: 'create_admin'
 
-
-  # resources :users, only: [:edit, :update]
+  resources :users
 end

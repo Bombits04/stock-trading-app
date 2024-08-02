@@ -5,21 +5,24 @@ one:
   first_name: "John"
   last_name: "Doe"
   user_type: "admin"
+  confirmed_at: <%= Time.now%>
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
 
 trader:
-  email: "testtrader@example.com"
+  email: "janedoe@example.com"
   first_name: "test"
-  last_name: "trader"
-  user_type: "trader"
+  last_name: "Jane"
+  user_type: "Doe"
+  confirmed_at: <%= Time.now%>
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
-  is_pending: "boolean"
+  is_pending: "fal;se"
 
 trader1:
   email: "testtrader1@example.com"
   first_name: "test1"
   last_name: "trader1"
   user_type: "trader"
+  confirmed_at: <%= Time.now%>
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
   is_pending: "boolean"
 
@@ -29,5 +32,6 @@ trader2:
   first_name: "test2"
   last_name: "trader2"
   user_type: "trader"
+  confirmed_at: <%= Time.now%>
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
   is_pending: "boolean"

@@ -29,9 +29,9 @@ RSpec.describe 'Admin', type: :feature do
       sign_in admin1
       visit admin_all_users_path
       expect(page).to have_content('All Users')
-      expect(edit_buttons.count).to be >= 1 # to verify that the admin account is able to see all users
       # click on a random edit button
       edit_buttons = all('a', text: 'Edit')
+      expect(edit_buttons.count).to be >= 1 # to verify that the admin account is able to see all users
       edit_buttons.sample.click
       puts edit_buttons.count
       # puts "Current path: #{current_path}" # for debugging

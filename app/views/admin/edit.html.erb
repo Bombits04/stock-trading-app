@@ -17,10 +17,16 @@
       <%= f.label :email, "Email: " %>
       <%= f.email_field :email %>
     </div>
-    <div class="field">
-      <%= f.label :is_pending, "Is Active?" %>
-      <%= f.select :is_pending, [["Active", false], ["Pending", true]] %>
-    </div>
+      <div class="div-<%= display_status(@user.is_pending) %>">
+        <div class="field-<%= display_status(@user.is_pending) %>">
+          <%= f.label :is_pending, "Is Active?" %>
+          <input type="text" disabled="true" class=<%= display_status(@user.is_pending) %> value=<%= display_status(@user.is_pending) %>></input>
+        </div>
+        <% if @user.is_pending == true %>
+          <%= link_to '<button class="btn">Approve User</button>'.html_safe, approve_user_path(@user.id), data: { turbo_method: :patch }, class: "btn" %>
+         
+        <% end %>
+      </div>
     <div class="actions1">
       <%= f.submit "Update User" %>
       <%= link_to "Back", "/", class: "btn" %>
