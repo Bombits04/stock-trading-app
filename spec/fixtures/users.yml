@@ -15,7 +15,7 @@ trader:
   user_type: "Doe"
   confirmed_at: <%= Time.now%>
   encrypted_password: <%= BCrypt::Password.create('securepassword') %>
-  is_pending: "boolean"
+  is_pending: "fal;se"
 
 trader1:
   email: "testtrader1@example.com"
