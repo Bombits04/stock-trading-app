@@ -1,0 +1,2 @@
+module StockMarketHelper
+end

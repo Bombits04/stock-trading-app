@@ -1,0 +1,197 @@
+ <style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.notice {
+  text-align: center;
+  font-size: 16px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.container {
+  border: none;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.centered-table {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+}
+
+thead th {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #ffffff;
+  padding: 5px 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-switch {
+  border-radius: 40px;
+  margin-top: 10px;
+  width: 100px;
+  transition: background-color 0.3s, transform 0.3s;
+  background-color: #007bff;
+  border-color: #bd2130;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.btn-switch:hover {
+  background-color: #0056b3;
+  border-color: #911c2a;
+  transform: scale(1.1);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+  margin-top: 20px;
+}
+
+.alert-custom {
+  border-left: 5px solid #007bff;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.alert-custom {
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.alert-custom p {
+  margin: 0;
+}
+
+.alert-custom a {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.mb-4 {
+  text-align: center;
+}
+
+  </style>
+
+  <div class="container mt-4 fade-in">
+    <h1>Stock Market</h1>
+    <p class="notice">Here you can find all the available stocks to purchase</p>
+    <div class="centered-table">
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th>Available Stock(s)</th>
+            <th>Price</th>
+            <th>Company</th>
+            <th>Transaction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @stocks.each do |stock| %>
+            <% if stock.stock_quantity > 0 %>
+              <tr>
+                <td><%= stock.stock_quantity %></td>
+                <td><%= number_to_currency(stock.price_per_stock) %></td>
+                <td><%= stock.company_name %></td>
+                <td>
+                  <%= button_to "Purchase", purchase_stock_path(stock), method: :post, class: "btn btn-primary btn-sm" %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="action-buttons">
+      <%= link_to 'My Profile', home_path, class: 'btn btn-switch' %>
+      <%= link_to 'My Portfolio', home_myportfolio_path, class: 'btn btn-switch' %>
+    </div>
+  </div>

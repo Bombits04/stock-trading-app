@@ -15,7 +15,8 @@ user = User.create(
   email: 'admin@admin.com',
   password: 'password123',
   user_type: 'admin',
-  is_pending: false
+  is_pending: false,
+  confirmed_at: Time.now,
 )
 
 # # active users
@@ -46,3 +47,10 @@ else
   puts "User creation failed: #{user.errors.full_messages.join(', ')}"
 end
 puts 'Finished seeding user.'
+
+Stock.create(stock_quantity: 1, price_per_stock: 100.23, company_name: 'Rolls Royce')
+Stock.create(stock_quantity: 45, price_per_stock: 157.89, company_name: 'Bugatti ')
+Stock.create(stock_quantity: 78, price_per_stock: 32.45, company_name: 'Jeep')
+Stock.create(stock_quantity: 12, price_per_stock: 254.75, company_name: 'Maserati')
+Stock.create(stock_quantity: 203, price_per_stock: 89.99, company_name: 'Toyota')
+Stock.create(stock_quantity: 66, price_per_stock: 121.60, company_name: 'Ford')

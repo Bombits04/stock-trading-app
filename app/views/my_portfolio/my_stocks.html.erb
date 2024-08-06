@@ -1,0 +1,218 @@
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.notice {
+  text-align: center;
+  font-size: 16px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.container {
+  border: none;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.centered-table {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+}
+
+thead th {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #ffffff;
+  padding: 5px 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-switch {
+  border-radius: 40px;
+  margin-top: 10px;
+  width: 100px;
+  transition: background-color 0.3s, transform 0.3s;
+  background-color: #007bff;
+  border-color: #bd2130;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.btn-switch:hover {
+  background-color: #0056b3;
+  border-color: #911c2a;
+  transform: scale(1.1);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+  margin-top: 20px;
+}
+
+.alert-custom {
+  border-left: 5px solid #007bff;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.alert-custom {
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.alert-custom p {
+  margin: 0;
+}
+
+.alert-custom a {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.mb-4 {
+  text-align: center;
+}
+
+
+</style>
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Stocks</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 class="text-center mb-4">My Stocks</h1>
+  <p class="notice">Here you can manage your stock portfolio</p>
+  <div class="container mt-4 fade-in">
+    <% if @stocks.any? %>
+      <div class="centered-table">
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th># of Stocks</th>
+              <th>Price per Stock</th>
+              <th>Total Price</th>
+              <th>Company</th>
+              <th>Transaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @stocks.each do |stock| %>
+              <tr>
+                <td><%= stock.total_quantity %></td>
+                <td><%= number_to_currency(stock.avg_price) %></td>
+                <td><%= number_to_currency(stock.total_price) %></td>
+                <td><%= stock.company_name %></td>
+                <td>
+                  <%= button_to "Sell", sell_stock_path(stock), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to sell this stock?" } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="alert alert-info alert-custom">
+        <p>No stocks available in your portfolio.</p>
+        <p><a href="<%= home_stockmarket_path %>" class="btn btn-primary">Buy stocks now!</a></p>
+        <p>Limited offers available!</p>
+      </div>
+    <% end %>
+    <div class="action-buttons">
+      <%= link_to 'My Profile', home_path, class: 'btn btn-switch' %>
+      <%= link_to 'Stock Market', home_stockmarket_path, class: 'btn btn-switch' %>
+    </div>
+  </div>
+</body>
+</html>
