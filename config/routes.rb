@@ -23,5 +23,11 @@ Rails.application.routes.draw do
   get 'admin/new', to: 'admin#new', as: 'new_admin'
   post 'admin/create', to: 'admin#create', as: 'create_admin'
 
+  get '/home/stockmarket' => 'stock_market#index'
+  post 'home/purchase/:id' => 'stock_market#purchase', as: 'purchase_stock'
+  get 'home/myportfolio' => 'my_portfolio#my_stocks'
+  delete 'home/sell/:id' => 'my_portfolio#sell', as: 'sell_stock'
+
+
   resources :users
 end

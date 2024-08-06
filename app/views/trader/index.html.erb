@@ -1,56 +1,147 @@
-<style>
+ <style>
   body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    background-color:white !important;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    color: #343a40;
+  }
+
+  .container {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white !important;
+    border: none !important;
+    animation: fadeIn 2s ease-in-out;
   }
 
   .personal-info {
-      min-height: 300px;
-      min-width: 400px;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
+    position: relative;
+    min-height: 300px;
+    min-width: 400px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    animation: slideIn 1s ease-out;
   }
 
   .personal-info h1 {
-      color: #333;
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   .personal-info p {
-      margin: 10px 0;
-      font-size: 18px;
+    margin: 10px 0;
+    font-size: 18px;
   }
 
-  .personal-info .btn-danger {
-      display: block;
-      width: 100%;
-      text-align: center;
+  .pendingStatus {
+    text-align: center;
+  }
+
+  .pending-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  .notifyClient {
+    font-size: 1rem !important;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .btn-primary {
+    border-radius: 20px !important;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+    transform: scale(1.1);
+  }
+
+  .btn-danger {
+    border-radius: 20px;
+    margin-top: 10px;
+    width: 100px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: scale(1.1);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
 </style>
+ <div class="container">
+    <div class="personal-info">
+      <h1>Your Profile</h1>
 
-<div class="personal-info">
-  <h1>Your Profile</h1>
+      <% if @user %>
+        <% if @user.is_pending %>
+          <div class="pendingStatus">
+            <p class="pending-message">Please wait for the admin's approval.</p>
+            <p class="notifyClient">You'll receive a notification via email.</p>
+          </div>
+        <% else %>
+          <p>Name: <%= @user.first_name %> <%= @user.last_name %></p>
+          <p>Email: <%= @user.email %></p>
+        <% end %>
+      <% else %>
+        <p>No trader information available.</p>
+      <% end %>
 
-  <% if @user %>
-    <p>Name: <%= @user.first_name %> <%= @user.last_name %></p>
-    <p>Email: <%= @user.email %></p>
-  <% else %>
-    <p>No trader information available.</p>
-  <% end %>
+      <div class="action-buttons">
+        <%= link_to 'My Portfolio', home_myportfolio_path, class: 'btn btn-primary' %>
+        <%= link_to 'Stock Market', home_stockmarket_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
 
-  <%= button_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn-danger" do %>
-    Logout
-  <% end %>
-</div>
+    <%= button_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-danger" do %>
+      Logout
+    <% end %>
+  </div>
