@@ -1,0 +1,10 @@
+stock1:
+  stock_quantity: 10
+  price_per_stock: 100.23
+  company_name: 'Rolls Royce'
+
+stock2:
+  stock_quantity: 0
+  price_per_stock: 157.89
+  company_name: 'Bugatti'
+

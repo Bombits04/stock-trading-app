@@ -1,6 +1,11 @@
 class Stock < ApplicationRecord
   has_many :stock_purchases
   has_many :users, through: :stock_purchases
+
+  validates :stock_quantity, numericality: { greater_than_or_equal_to: 0 }
+  validates :company_name, presence: true, uniqueness: true
+  validates :price_per_stock, numericality: { greater_than_or_equal_to: 0 }
+
   attr_accessor :purchased_by_user
 
   def purchase_by(user)
@@ -27,4 +32,3 @@ class Stock < ApplicationRecord
     purchased_by_user
   end
 end
-
