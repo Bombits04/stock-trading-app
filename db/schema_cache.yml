@@ -24,7 +24,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &3 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &4 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: created_at
     sql_type_metadata: &2 !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
@@ -38,7 +38,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &4 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &5 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: updated_at
     sql_type_metadata: *2
@@ -57,11 +57,11 @@ columns:
     default_function:
     collation:
     comment:
-  users:
-  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  stock_purchases:
+  - &6 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment: true
     name: id
-    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+    sql_type_metadata: &3 !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
       sql_type: INTEGER
       type: :integer
       limit:
@@ -72,6 +72,73 @@ columns:
     default_function:
     collation:
     comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: type_of_transaction
+    sql_type_metadata: *1
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: user_id
+    sql_type_metadata: *3
+    'null': false
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: stock_id
+    sql_type_metadata: *3
+    'null': false
+    default:
+    default_function:
+    collation:
+    comment:
+  - *4
+  - *5
+  stocks:
+  - *6
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: company_name
+    sql_type_metadata: *1
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: stock_quantity
+    sql_type_metadata: *3
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: price_per_stock
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: float
+      type: :float
+      limit:
+      precision:
+      scale:
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - *4
+  - *5
+  users:
+  - *6
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: email
@@ -180,8 +247,8 @@ columns:
     default_function:
     collation:
     comment:
-  - *3
   - *4
+  - *5
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: is_pending
@@ -199,15 +266,69 @@ columns:
 primary_keys:
   ar_internal_metadata: key
   schema_migrations: version
+  stock_purchases: id
+  stocks: id
   users: id
 data_sources:
   ar_internal_metadata: true
   schema_migrations: true
+  stock_purchases: true
+  stocks: true
   users: true
 indexes:
   ar_internal_metadata: []
   schema_migrations: []
+  stock_purchases:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: stock_purchases
+    name: index_stock_purchases_on_stock_id
+    unique: false
+    columns:
+    - stock_id
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: stock_purchases
+    name: index_stock_purchases_on_user_id
+    unique: false
+    columns:
+    - user_id
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
+  stocks: []
   users:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: users
+    name: index_users_on_confirmation_token
+    unique: true
+    columns:
+    - confirmation_token
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
   - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
     table: users
     name: index_users_on_reset_password_token
@@ -240,7 +361,7 @@ indexes:
     nulls_not_distinct:
     comment:
     valid: true
-version: 20240729120134
+version: 20240805214535
 database_version: !ruby/object:ActiveRecord::ConnectionAdapters::AbstractAdapter::Version
   version:
   - 3

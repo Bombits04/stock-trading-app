@@ -171,7 +171,7 @@ tbody tr:nth-child(even) {
             <th>Available Stock(s)</th>
             <th>Price</th>
             <th>Company</th>
-            <th>Transaction</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -182,7 +182,7 @@ tbody tr:nth-child(even) {
                 <td><%= number_to_currency(stock.price_per_stock) %></td>
                 <td><%= stock.company_name %></td>
                 <td>
-                  <%= button_to "Purchase", purchase_stock_path(stock), method: :post, class: "btn btn-primary btn-sm" %>
+                  <%= button_to "Add Stock", add_stock_path(stock), method: :post, class: "btn btn-primary btn-sm" %>
                 </td>
               </tr>
             <% end %>
