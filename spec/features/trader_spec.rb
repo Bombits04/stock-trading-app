@@ -22,9 +22,9 @@ RSpec.describe 'Trader', type: :feature do
   describe 'Stock Purchase' do
     it 'allows the trader to create a new stock purchase' do
       visit home_stockmarket_path
-      click_on ('Purchase')
+      click_on ('Add Stock')
       expect(page).to have_content('My Stocks')
-      expect(page).to have_content('Stock purchased successfully!')
+      expect(page).to have_content('Stock added successfully!')
     end
   end
 
@@ -43,9 +43,9 @@ RSpec.describe 'Trader', type: :feature do
       expect(page).to have_content('Your Profile')
       click_on ('Stock Market')
       expect(page).to have_content('Stock Market')
-      click_on ('Purchase')
-      expect(page).to have_content('Sell')
-      click_on ('Sell')
+      click_on ('Add Stock')
+      expect(page).to have_content('Delete')
+      click_on ('Delete')
       expect(page).to have_content('No stocks available in your portfolio.')
     end
   end

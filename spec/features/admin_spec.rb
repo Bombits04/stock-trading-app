@@ -33,7 +33,7 @@ RSpec.describe 'Admin', type: :feature do
       edit_buttons = all('a', text: 'Edit')
       expect(edit_buttons.count).to be >= 1 # to verify that the admin account is able to see all users
       edit_buttons.sample.click
-      puts edit_buttons.count
+      # puts edit_buttons.count
       # puts "Current path: #{current_path}" # for debugging
       fill_in 'user_first_name', with: 'updatedFirstName'
       click_button 'Update User'
