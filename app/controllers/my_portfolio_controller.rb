@@ -20,7 +20,7 @@ class MyPortfolioController < ApplicationController
       stock = Stock.find(params[:id])
         if stock
           stock.increment!(:stock_quantity)
-          redirect_to home_myportfolio_path, notice: 'Stock sold and quantity updated successfully!'
+          redirect_to home_myportfolio_path, notice: 'Stock deleted and quantity updated successfully!'
         else
           redirect_to home_myportfolio_path, alert: 'Stock to update not found.'
       end

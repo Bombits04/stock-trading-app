@@ -184,7 +184,7 @@ tbody tr:nth-child(even) {
               <th>Price per Stock</th>
               <th>Total Price</th>
               <th>Company</th>
-              <th>Transaction</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -195,7 +195,7 @@ tbody tr:nth-child(even) {
                 <td><%= number_to_currency(stock.total_price) %></td>
                 <td><%= stock.company_name %></td>
                 <td>
-                  <%= button_to "Sell", sell_stock_path(stock), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to sell this stock?" } %>
+                  <%= button_to "Delete", sell_stock_path(stock), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to sell this stock?" } %>
                 </td>
               </tr>
             <% end %>
