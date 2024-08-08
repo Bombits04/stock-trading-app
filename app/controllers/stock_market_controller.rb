@@ -1,13 +1,9 @@
 class StockMarketController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_stock, only: %i[purchase add]
+  before_action :set_stock, only: %i[add]
 
   def index
     @stocks = Stock.all
-  end
-
-  def purchase
-    add
   end
 
   def add

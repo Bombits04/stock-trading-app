@@ -24,9 +24,9 @@ Rails.application.routes.draw do
   post 'admin/create', to: 'admin#create', as: 'create_admin'
 
   get '/home/stockmarket' => 'stock_market#index'
-  post 'home/purchase/:id' => 'stock_market#purchase', as: 'purchase_stock'
+  post 'home/myportfolio/:id' => 'stock_market#add', as: 'add_stock'
   get 'home/myportfolio' => 'my_portfolio#my_stocks'
-  delete 'home/sell/:id' => 'my_portfolio#sell', as: 'sell_stock'
+  delete 'home/myportfolio/:id' => 'my_portfolio#delete', as: 'delete_stock'
 
 
   resources :users
