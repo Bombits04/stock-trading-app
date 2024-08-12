@@ -3,7 +3,13 @@ class MyPortfolioController < ApplicationController
   before_action :set_stock, only: %i[delete buy_stock sell_stock]
 
   def my_stocks
-    @stocks = current_user.stocks.group(:id).select('stocks.id, IIF(count(1) > 1, count(1)-1, 0) as total_quantity, AVG(stocks.price_per_stock) as avg_price, SUM(stocks.price_per_stock)-stocks.price_per_stock as total_price, stocks.company_name')
+    @stocks = current_user.stocks
+                .group(:id)
+                .select('stocks.id, 
+                        IIF(count(1) > 1, count(1)-1, 0) as total_quantity, 
+                        AVG(stocks.price_per_stock) as avg_price, 
+                        stock_purchases.amount as total_price, 
+                        stocks.company_name')
 
     @stocks.each do |stock|
       stock.avg_price = stock.avg_price.to_f.round(2) if stock.avg_price
@@ -15,7 +21,7 @@ class MyPortfolioController < ApplicationController
   def delete
     remove_stock = current_user.stock_purchases.find_by(stock_id: params[:id], type_of_transaction: 'add')
     
-    if remove_stock && has_stocks?(current_user)
+    if remove_stock && !has_stocks?(current_user)
       remove_stock.destroy
       stock = Stock.find(params[:id])
         if stock
@@ -49,7 +55,7 @@ class MyPortfolioController < ApplicationController
   private
 
   def has_stocks?(user)
-    user.stock_purchases.where(id: :id, type_of_transaction: 'buy').exists?
+    user.stock_purchases.where(user_id: :id, type_of_transaction: 'buy').exists?
   end
 
   def set_stock
