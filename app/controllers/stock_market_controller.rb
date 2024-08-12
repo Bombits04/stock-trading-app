@@ -8,7 +8,7 @@ class StockMarketController < ApplicationController
 
   def add
     stock = Stock.find(params[:id])
-    if stock&.purchase_by(current_user)
+    if stock&.add_stock(current_user)
       redirect_to home_myportfolio_path, notice: 'Stock added successfully!'
     else
       redirect_to home_stockmarket_path, alert: stock ? 'Stock is out of quantity.' : 'Stock not found.'

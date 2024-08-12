@@ -3,7 +3,7 @@ class MyPortfolioController < ApplicationController
   before_action :set_stock, only: %i[delete]
 
   def my_stocks
-    @stocks = current_user.stocks.group(:id).select('stocks.id, COUNT(stocks.id) as total_quantity, AVG(stocks.price_per_stock) as avg_price, SUM(stocks.price_per_stock) as total_price, stocks.company_name')
+    @stocks = current_user.stocks.group(:id).select('stocks.id, IIF(count(1) > 1, count(1)-1, 0) as total_quantity, AVG(stocks.price_per_stock) as avg_price, SUM(stocks.price_per_stock) as total_price, stocks.company_name')
 
     @stocks.each do |stock|
       stock.avg_price = stock.avg_price.to_f.round(2) if stock.avg_price
@@ -19,7 +19,6 @@ class MyPortfolioController < ApplicationController
       remove_stock.destroy
       stock = Stock.find(params[:id])
         if stock
-          stock.increment!(:stock_quantity)
           redirect_to home_myportfolio_path, notice: 'Stock deleted and quantity updated successfully!'
         else
           redirect_to home_myportfolio_path, alert: 'Stock to update not found.'

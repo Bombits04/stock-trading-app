@@ -2,33 +2,39 @@ class Stock < ApplicationRecord
   has_many :stock_purchases
   has_many :users, through: :stock_purchases
 
-  validates :stock_quantity, numericality: { greater_than_or_equal_to: 0 }
+  # validates :stock_quantity, numericality: { greater_than_or_equal_to: 0 }
   validates :company_name, presence: true, uniqueness: true
   validates :price_per_stock, numericality: { greater_than_or_equal_to: 0 }
 
-  attr_accessor :purchased_by_user
+  scope :added_by_user, -> { joins(:stock_purchases).where(stock_purchases: { user_id: user.id, type_of_transaction: nil }) }
 
-  def purchase_by(user)
-    return false if stock_quantity <= 0
+  attr_accessor :add_stock
+
+  def add_stock(user)
+    # return false if stock_quantity <= 0
 
     transaction do
-      decrement_market_quantity
-      self.purchased_by_user = true
+      # decrement_market_quantity
+      self.add_stock = true
       user.stocks << self
       save!
     end
-    true
-  rescue
-    false
+  #   true
+  # rescue
+  #   false
   end
 
   private
 
-  def decrement_market_quantity
-    self.stock_quantity -= 1
+  def stock_exist?(user)
+    
   end
 
-  def purchased_by_user?
-    purchased_by_user
+  # def decrement_market_quantity
+  #   self.stock_quantity -= 1
+  # end
+
+  def add_stock?
+    add_stock
   end
 end

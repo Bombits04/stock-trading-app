@@ -26,7 +26,8 @@ for i in 1..10 do
     last_name: "last_name#{i}",
     email: "email_active#{i}@email.com",
     password: "password#{i}",
-    is_pending: false
+    is_pending: false,
+    confirmed_at: Time.now,
   )
 end
 # pending users
@@ -36,7 +37,8 @@ for i in 1..10 do
     last_name: "last_name#{i}",
     email: "email_pending#{i}@email.com",
     password: "password#{i}",
-    is_pending: true
+    is_pending: true,
+    confirmed_at: Time.now,
   )
 end
 
@@ -48,9 +50,9 @@ else
 end
 puts 'Finished seeding user.'
 
-Stock.create(stock_quantity: 1, price_per_stock: 100.23, company_name: 'Rolls Royce')
-Stock.create(stock_quantity: 45, price_per_stock: 157.89, company_name: 'Bugatti ')
-Stock.create(stock_quantity: 78, price_per_stock: 32.45, company_name: 'Jeep')
-Stock.create(stock_quantity: 12, price_per_stock: 254.75, company_name: 'Maserati')
-Stock.create(stock_quantity: 203, price_per_stock: 89.99, company_name: 'Toyota')
-Stock.create(stock_quantity: 66, price_per_stock: 121.60, company_name: 'Ford')
+Stock.create( price_per_stock: 100.23, company_name: 'Rolls Royce')
+Stock.create( price_per_stock: 157.89, company_name: 'Bugatti ')
+Stock.create( price_per_stock: 32.45, company_name: 'Jeep')
+Stock.create( price_per_stock: 254.75, company_name: 'Maserati')
+Stock.create( price_per_stock: 89.99, company_name: 'Toyota')
+Stock.create( price_per_stock: 121.60, company_name: 'Ford')
