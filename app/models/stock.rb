@@ -12,12 +12,12 @@ class Stock < ApplicationRecord
 
   def add_stock(user)
     # return false if stock_quantity <= 0
-
-    transaction do
-      # decrement_market_quantity
-      self.add_stock = true
-      user.stocks << self
-      save!
+    return false if stock_exist?(user)
+      transaction do
+        # decrement_market_quantity
+        self.add_stock = true
+        user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'add')
+        save!
     end
   #   true
   # rescue
@@ -27,7 +27,7 @@ class Stock < ApplicationRecord
   private
 
   def stock_exist?(user)
-    
+    user.stock_purchases.where(stock_id: id).exists?
   end
 
   # def decrement_market_quantity

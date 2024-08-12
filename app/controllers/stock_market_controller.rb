@@ -11,7 +11,7 @@ class StockMarketController < ApplicationController
     if stock&.add_stock(current_user)
       redirect_to home_myportfolio_path, notice: 'Stock added successfully!'
     else
-      redirect_to home_stockmarket_path, alert: stock ? 'Stock is out of quantity.' : 'Stock not found.'
+      redirect_to home_stockmarket_path, alert: "Stock already added to portfolio"
     end
   end
 
