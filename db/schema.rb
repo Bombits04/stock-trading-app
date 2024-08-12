@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.1].define(version: 2024_08_05_214535) do
   create_table "stock_purchases", force: :cascade do |t|
     t.string "type_of_transaction"
-    t.float "purchase_amount"
+    t.float "amount"
     t.integer "user_id", null: false
     t.integer "stock_id", null: false
     t.datetime "created_at", null: false

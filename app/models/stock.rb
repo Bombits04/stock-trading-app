@@ -6,16 +6,14 @@ class Stock < ApplicationRecord
   validates :company_name, presence: true, uniqueness: true
   validates :price_per_stock, numericality: { greater_than_or_equal_to: 0 }
 
-  scope :added_by_user, -> { joins(:stock_purchases).where(stock_purchases: { user_id: user.id, type_of_transaction: nil }) }
-
-  attr_accessor :add_stock
+  # attr_accessor :add_stock
 
   def add_stock(user)
     # return false if stock_quantity <= 0
     return false if stock_exist?(user)
       transaction do
         # decrement_market_quantity
-        self.add_stock = true
+        # self.add_stock = true
         user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'add')
         save!
     end
@@ -24,10 +22,28 @@ class Stock < ApplicationRecord
   #   false
   end
 
+  def buy_stock(user)
+    
+    transaction do
+      # decrement_market_quantity
+      user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'buy')
+      save!
+    end
+  end
+
+  def sell_stock(user)
+    transaction do
+      # decrement_market_quantity
+      user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'sell')
+      save!
+    end
+  end
+
+
   private
 
   def stock_exist?(user)
-    user.stock_purchases.where(stock_id: id).exists?
+    user.stock_purchases.where(stock_id: id, type_of_transaction: 'buy').exists?
   end
 
   # def decrement_market_quantity

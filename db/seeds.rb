@@ -28,6 +28,7 @@ for i in 1..10 do
     password: "password#{i}",
     is_pending: false,
     confirmed_at: Time.now,
+    balance: 1000.00,
   )
 end
 # pending users
@@ -39,6 +40,7 @@ for i in 1..10 do
     password: "password#{i}",
     is_pending: true,
     confirmed_at: Time.now,
+    balance: 1000.00,
   )
 end
 
