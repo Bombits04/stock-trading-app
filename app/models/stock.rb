@@ -27,7 +27,11 @@ class Stock < ApplicationRecord
       # decrement_market_quantity
       user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'buy')
       save!
-      user.update!(balance: user.balance - price_per_stock)
+      if user.balance > price_per_stock
+        user.update!(balance: user.balance - price_per_stock)
+      else
+        return false
+      end 
     end
   end
 
