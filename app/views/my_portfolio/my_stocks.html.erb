@@ -135,6 +135,12 @@ tbody tr:nth-child(even) {
     opacity: 1;
   }
 }
+.buy-text {
+  color: rgb(0, 175, 0);
+}
+.sell-text {
+  color: red;
+}
 
 .alert-custom {
   padding: 20px;
@@ -228,7 +234,7 @@ tbody tr:nth-child(even) {
           <% @transactions.each do |trans| %>
             <tr>
               <td><%= trans.trans_date %></td>
-              <td><%= trans.type_of_transaction %></td>
+              <td class='<%=trans.type_of_transaction%>-text'><strong><%= trans.type_of_transaction %></strong></td>
               <td><%= trans.company_name %></td>
               <td><%= trans.amount %></td>
             </tr>
