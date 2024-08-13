@@ -234,7 +234,7 @@ tbody tr:nth-child(even) {
           <% @transactions.each do |trans| %>
             <tr>
               <td><%= trans.trans_date %></td>
-              <td class='<%=trans.type_of_transaction%>-text'><strong><%= trans.type_of_transaction %></strong></td>
+              <td class='<%=trans.type_of_transaction%>-text'><strong><%= trans.type_of_transaction.capitalize %></strong></td>
               <td><%= trans.company_name %></td>
               <td><%= trans.amount %></td>
             </tr>
