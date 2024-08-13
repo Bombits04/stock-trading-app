@@ -17,6 +17,7 @@ user = User.create(
   user_type: 'admin',
   is_pending: false,
   confirmed_at: Time.now,
+  balance: 0
 )
 
 # active users

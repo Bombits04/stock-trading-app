@@ -20,6 +20,15 @@ class MyPortfolioController < ApplicationController
     # 
     @user = current_user;
 
+    @transactions = current_user.stock_purchases
+                          .select('stock_id, 
+                                  type_of_transaction, 
+                                  amount,
+                                  created_at as trans_date,
+                                  (SELECT A.COMPANY_NAME FROM STOCKS A WHERE A.ID = STOCK_PURCHASES.STOCK_ID) as company_name')
+                          .where('type_of_transaction = \'sell\' OR type_of_transaction =\'buy\'')
+                          .order('created_at DESC')
+
   end
 
   def delete

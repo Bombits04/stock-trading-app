@@ -25,7 +25,7 @@ class Stock < ApplicationRecord
   def buy_stock(user, price_per_stock)
     transaction do
       # decrement_market_quantity
-      user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'buy')
+      user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'buy', amount: price_per_stock)
       save!
       if user.balance > price_per_stock
         user.update!(balance: user.balance - price_per_stock)
@@ -39,7 +39,7 @@ class Stock < ApplicationRecord
     if has_stocks?(user)
       transaction do
         # decrement_market_quantity
-        user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'sell')
+        user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'sell', amount: price_per_stock)
         save!
         user.update!(balance: user.balance + price_per_stock)
       end
