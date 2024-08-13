@@ -184,7 +184,9 @@ tbody tr:nth-child(even) {
               <td><%= number_to_currency(stock.total_price) %></td>
               <td><%= stock.company_name %></td>
               <td>
+              <%if stock.total_quantity == 0%>
                 <%= button_to "Delete", delete_stock_path(stock), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to delete this stock?" } %>
+              <%end%>
                 <%= link_to "buy", buy_stock_path(stock), method: :post, class: "btn btn-primary btn-sm" %>
                 <%= link_to "sell", sell_stock_path(stock), method: :post, class: "btn btn-primary btn-sm" %>
               </td>
