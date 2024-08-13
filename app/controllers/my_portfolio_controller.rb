@@ -17,6 +17,8 @@ class MyPortfolioController < ApplicationController
     #   stock.avg_price = stock.avg_price.to_f.round(2) if stock.avg_price
     #   stock.total_price = stock.total_price.to_f.round(2) if stock.total_price
     # end
+    # 
+    @user = current_user;
 
   end
 
@@ -38,7 +40,7 @@ class MyPortfolioController < ApplicationController
 
   def buy_stock 
     stock = Stock.find(params[:id])
-    if stock&.buy_stock(current_user)
+    if stock&.buy_stock(current_user, stock.price_per_stock)
       redirect_to home_myportfolio_path, notice: 'Stock bought successfully'
     else
       redirect_to home_myportfolio_path, alert: 'Unable to buy stock'
@@ -47,7 +49,7 @@ class MyPortfolioController < ApplicationController
 
   def sell_stock
     stock = Stock.find(params[:id])
-    if stock&.sell_stock(current_user)
+    if stock&.sell_stock(current_user, stock.price_per_stock)
       redirect_to home_myportfolio_path, notice: 'Stock sold successfully'
     else
       redirect_to home_myportfolio_path, alert: 'No stocks to sell'
