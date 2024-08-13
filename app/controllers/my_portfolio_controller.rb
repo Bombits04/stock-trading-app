@@ -1,27 +1,29 @@
 class MyPortfolioController < ApplicationController
   before_action :authenticate_user!
   before_action :set_stock, only: %i[delete buy_stock sell_stock]
+  before_action :has_stocks?, only: %i[delete]
 
   def my_stocks
     @stocks = current_user.stocks
-                .group(:id)
-                .select('stocks.id, 
-                        IIF(count(1) > 1, count(1)-1, 0) as total_quantity, 
-                        AVG(stocks.price_per_stock) as avg_price, 
-                        stock_purchases.amount as total_price, 
-                        stocks.company_name')
+                        .group(:id)
+                        .select('stocks.id, 
+                                (SELECT count(1) FROM STOCK_PURCHASES A WHERE A.STOCK_ID = STOCK_PURCHASES.STOCK_ID AND A.USER_ID = STOCK_PURCHASES.USER_ID AND A.TYPE_OF_TRANSACTION = \'buy\') - (SELECT count(1) FROM STOCK_PURCHASES A WHERE A.STOCK_ID = STOCK_PURCHASES.STOCK_ID AND A.USER_ID = STOCK_PURCHASES.USER_ID AND A.TYPE_OF_TRANSACTION = \'sell\') as total_quantity,
+                                AVG(stocks.price_per_stock) as avg_price,
+                                (stocks.price_per_stock * ((SELECT count(1) FROM STOCK_PURCHASES A WHERE A.STOCK_ID = STOCK_PURCHASES.STOCK_ID AND A.USER_ID = STOCK_PURCHASES.USER_ID AND A.TYPE_OF_TRANSACTION = \'buy\') - (SELECT count(1) FROM STOCK_PURCHASES A WHERE A.STOCK_ID = STOCK_PURCHASES.STOCK_ID AND A.USER_ID = STOCK_PURCHASES.USER_ID AND A.TYPE_OF_TRANSACTION = \'sell\'))) as total_price,
+                                stocks.company_name')
+                        .where('stock_purchases.type_of_transaction = ?', 'add')
 
-    @stocks.each do |stock|
-      stock.avg_price = stock.avg_price.to_f.round(2) if stock.avg_price
-      stock.total_price = stock.total_price.to_f.round(2) if stock.total_price
-    end
+    # @stocks.each do |stock|
+    #   stock.avg_price = stock.avg_price.to_f.round(2) if stock.avg_price
+    #   stock.total_price = stock.total_price.to_f.round(2) if stock.total_price
+    # end
 
   end
 
   def delete
     remove_stock = current_user.stock_purchases.find_by(stock_id: params[:id], type_of_transaction: 'add')
     
-    if remove_stock && !has_stocks?(current_user)
+    if remove_stock && !has_stocks?
       remove_stock.destroy
       stock = Stock.find(params[:id])
         if stock
@@ -48,14 +50,21 @@ class MyPortfolioController < ApplicationController
     if stock&.sell_stock(current_user)
       redirect_to home_myportfolio_path, notice: 'Stock sold successfully'
     else
-      redirect_to home_myportfolio_path, alert: 'Unable to sell stock'
+      redirect_to home_myportfolio_path, alert: 'No stocks to sell'
     end
   end
 
   private
 
-  def has_stocks?(user)
-    user.stock_purchases.where(user_id: :id, type_of_transaction: 'buy').exists?
+  def has_stocks?
+    buy_stocks = current_user.stock_purchases.where(stock_id: params[:id], type_of_transaction: 'buy').count
+    sell_stocks = current_user.stock_purchases.where(stock_id: params[:id], type_of_transaction: 'sell').count  
+    # debugger
+    if buy_stocks > sell_stocks
+      return true
+    else
+      return false
+    end
   end
 
   def set_stock

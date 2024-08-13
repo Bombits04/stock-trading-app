@@ -17,13 +17,12 @@ class Stock < ApplicationRecord
         user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'add')
         save!
     end
-  #   true
-  # rescue
+  #    true
+  #  rescue
   #   false
   end
 
   def buy_stock(user)
-    
     transaction do
       # decrement_market_quantity
       user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'buy')
@@ -32,10 +31,12 @@ class Stock < ApplicationRecord
   end
 
   def sell_stock(user)
-    transaction do
-      # decrement_market_quantity
-      user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'sell')
-      save!
+    if has_stocks?(user)
+      transaction do
+        # decrement_market_quantity
+        user.stock_purchases << StockPurchase.new(stock: self, type_of_transaction: 'sell')
+        save!
+      end
     end
   end
 
@@ -43,14 +44,24 @@ class Stock < ApplicationRecord
   private
 
   def stock_exist?(user)
-    user.stock_purchases.where(stock_id: id, type_of_transaction: 'buy').exists?
+    user.stock_purchases.where(stock_id: id, type_of_transaction: 'add').exists?
+  end
+
+  def has_stocks?(user)
+    buy_stocks = user.stock_purchases.where(stock_id: self.id, type_of_transaction: 'buy').count
+    sell_stocks = user.stock_purchases.where(stock_id: self.id, type_of_transaction: 'sell').count  
+    if buy_stocks > sell_stocks
+      return true
+    else
+      return false
+    end
   end
 
   # def decrement_market_quantity
   #   self.stock_quantity -= 1
   # end
 
-  def add_stock?
-    add_stock
-  end
+  # def add_stock?
+  #   add_stock
+  # end
 end
