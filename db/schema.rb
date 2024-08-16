@@ -13,6 +13,7 @@
 ActiveRecord::Schema[7.1].define(version: 2024_08_05_214535) do
   create_table "stock_purchases", force: :cascade do |t|
     t.string "type_of_transaction"
+    t.float "amount"
     t.integer "user_id", null: false
     t.integer "stock_id", null: false
     t.datetime "created_at", null: false
@@ -23,7 +24,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_214535) do
 
   create_table "stocks", force: :cascade do |t|
     t.string "company_name"
-    t.integer "stock_quantity"
     t.float "price_per_stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_214535) do
     t.string "first_name"
     t.string "last_name"
     t.string "user_type"
+    t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_pending", default: true

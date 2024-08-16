@@ -28,6 +28,11 @@ Rails.application.routes.draw do
   get 'home/myportfolio' => 'my_portfolio#my_stocks'
   delete 'home/myportfolio/:id' => 'my_portfolio#delete', as: 'delete_stock'
 
+  get '/home/myportfolio/:id/buy' => 'my_portfolio#buy_stock', as: 'buy_stock'
+  post '/home/myportfolio/:id/buy' => 'my_portfolio#buy_stock'
+  
+  get '/home/myportfolio/:id/sell' => 'my_portfolio#sell_stock', as: 'sell_stock'
+  post '/home/myportfolio/:id/sell' => 'my_portfolio#sell_stock'
 
   resources :users
 end
